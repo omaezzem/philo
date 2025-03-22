@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 23:16:02 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/15 11:00:48 by omaezzem         ###   ########.fr       */
+/*   Created: 2025/03/18 07:39:36 by omaezzem          #+#    #+#             */
+/*   Updated: 2025/03/21 09:31:35 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
-
+#include  "../include/philo.h"
 
 int main(int ac, char **av)
 {
-    if (ac == 6)
-    {
-        validinput(ac, av);
-    }
+    t_dining_table table;
+    int max_ph;
+
+    if (ac < 5 || ac > 6)
+        ft_putstr_fd(ERR_INV_ARG, 2);
     else
-        write (1, "EROOR\n", 6);
+    {
+        if (!validinput(ac, av))
+            return 0;
+        if (!init_dining_table(&table, av, ac))
+            return 0;
+        
+    }
 }

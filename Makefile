@@ -6,7 +6,7 @@
 #    By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 10:53:12 by omaezzem          #+#    #+#              #
-#    Updated: 2025/03/15 10:56:13 by omaezzem         ###   ########.fr        #
+#    Updated: 2025/03/21 09:04:46 by omaezzem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,15 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = 
 
-MAIN_SOURCES = src/errormsg.c\
-			   src/parsing.c\
+MAIN_SOURCES = src/parsing.c\
+			   src/main.c\
 			   src/philo.c\
 			   utilis/atoi_ph.c\
 			   utilis/ft_putstr_fd.c\
 			   utilis/isdigit.c\
+			   utilis/get_time.c\
 
 MAIN_OBJECTS = $(MAIN_SOURCES:.c=.o)
 

@@ -6,58 +6,62 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 09:36:00 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/15 10:57:19 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/03/21 08:31:10 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	valid_number(char *str)
+int valid_number(char *str)
 {
-	int	i;
+	int i = 0;
 
-	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	if (str[i] == '\0')
+		return (0);
 	while (str[i])
 	{
-		if (!(ft_isdigit(str[i])))
+		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int	ft_to_int(char *str)
+int ft_to_int(char *str)
 {
-	unsigned long long int	nb;
-	int 					i;
-
-	i = 0;
-	nb = 0;
-	nb = atoi_ph(str, nb);
-	if (nb > INT_MAX)
+	int	nb = atoi_ph(str);
+	if (nb == -1 || nb > INT_MAX)
 		return (-1);
 	return ((int)nb);
 }
 
-void	validinput(int ac, char **av)
+int	 validinput(int ac, char **av)
 {
-	int	i;
-	int	nb;
+	int i = 1;
+	int nb;
 
-	i = 1;
 	while (i < ac)
 	{
+		if (!valid_number(av[i]))
+		{
+			if (i == 1)
+				return (ft_putstr_fd(ERR_INV_N_PHILO, 2), 0);
+			else if (i == 2 || i == 3 || i == 4)
+				return(ft_putstr_fd(ERR_INV_INPUT, 2), 0);
+			else if (i == 5)
+				return (ft_putstr_fd(ERR_INV_MEALS, 2), 0);
+			return ;
+		}
 		nb = ft_to_int(av[i]);
 		if (nb == -1)
-			invalid_number();
-		if (i == 1 && (!valid_number(av[i]) || nb > MAX_PHILO))
-			invalid_n_philosopher();
-		if ((i == 2 || i == 3) && !valid_number(av[i]))
-			invalid_t_value();
-		if (i == 4 && !valid_number(av[i]))
-			invalid_number();
-		if (i == 5 && (!valid_number(av[i]) || nb > MAX_MEAL))
-			invalid_n_meals();
+			return (ft_putstr_fd(ERR_INV_NUM, 2), 0);
+		if (i == 1 && nb > MAX_PHILO)
+			return (ft_putstr_fd(ERR_INV_N_PHILO, 2), 0);
+		if (i == 5 && nb > MAX_MEAL)
+			return (ft_putstr_fd(ERR_INV_INPUT, 2), 0);
 		i++;
 	}
+	return (1);
 }
