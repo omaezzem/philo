@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 09:36:00 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/21 08:31:10 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/03/23 06:27:40 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	 validinput(int ac, char **av)
 				return(ft_putstr_fd(ERR_INV_INPUT, 2), 0);
 			else if (i == 5)
 				return (ft_putstr_fd(ERR_INV_MEALS, 2), 0);
-			return ;
+			return 0;
 		}
 		nb = ft_to_int(av[i]);
 		if (nb == -1)

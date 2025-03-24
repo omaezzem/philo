@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 09:36:38 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/21 09:56:39 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/03/23 22:40:22 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define	MAX_MEAL 200
 
 // error msg //
+
 #define ERR_INV_N_PHILO "Error: Number of philosophers must be at least 1.\n"
 #define ERR_INV_INPUT "Error: argumant must be positive integers.\n"
 #define ERR_INV_MEALS "Error: number of meals must be positive integers.\n"
@@ -51,6 +52,8 @@ size_t	get_current_time(void);
 
 //                         structers                             //
 
+typedef struct  s_dining_table t_dining_table;
+
 typedef struct s_philosopher {
     int id;
     pthread_t thread;
@@ -62,24 +65,28 @@ typedef struct s_philosopher {
 } t_philosopher;
 
 typedef struct s_dining_table {
-    int philosopher_count;
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    int required_meals;
-    int simulation_over;
-    size_t start_time;
-    pthread_mutex_t meal_lock;
-    pthread_mutex_t time_lock;
-    pthread_mutex_t print_lock;
-    pthread_mutex_t death_lock;
-    pthread_mutex_t *forks;
-    t_philosopher *philosophers;
+    int philosopher_count;     // Number of philosophers participating in the simulation.
+    int time_to_die;           // Time in milliseconds/seconds (or other units) before a philosopher dies if they haven't eaten.
+    int time_to_eat;           // Time in milliseconds/seconds (or other units) it takes for a philosopher to eat.
+    int time_to_sleep;         // Time in milliseconds/seconds (or other units) a philosopher will sleep after eating.
+    int required_meals;        // Number of meals each philosopher must eat before the simulation ends.
+    int die_flag;              // Flag indicating if the simulation has ended (e.g., 1 for over, 0 for running).
+    size_t start_time;         // The time at which the simulation starts, typically stored as a timestamp.
+    
+    pthread_mutex_t meal_lock; // Mutex to protect access to philosopher's meal counts (to prevent race conditions).
+    pthread_mutex_t time_lock; // Mutex to protect access to shared time data (e.g., start time).
+    pthread_mutex_t print_lock; // Mutex to ensure safe printing, so multiple threads don't print at the same time.
+    pthread_mutex_t death_lock; // Mutex for safely checking and updating the status of philosophers (alive or dead).
+    
+    pthread_mutex_t *forks;    // Pointer to an array of mutexes representing the forks. Each philosopher needs two forks to eat.
+    t_philosopher *philosophers; // Pointer to an array of philosophers, each with its own state (e.g., meals eaten, thread, etc.).
 } t_dining_table;
 
 
-int     init_dining_table(t_dining_table *table, char **av, int ac);
+//                  src                     //
 
+int     init_dining_table(t_dining_table *table, char **av, int ac);
+int     bismillah(t_dining_table *table);
+int     hyper(t_dining_table *table);
 
 #endif
-
