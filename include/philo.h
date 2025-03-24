@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 09:36:38 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/23 22:40:22 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/03/24 03:44:25 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@
 
 #define MSG_FORK "has taken a fork\n"
 #define MSG_DIED "died\n"
+#define MSG_EAT "is eating\n"
+#define MSG_SLP "is sleeping\n"
+#define MSG_THK "is thinking\n"
+
 
 //                         utilis functions                         //
 
@@ -88,5 +92,7 @@ typedef struct s_dining_table {
 int     init_dining_table(t_dining_table *table, char **av, int ac);
 int     bismillah(t_dining_table *table);
 int     hyper(t_dining_table *table);
+int     ft_ph_sleep(size_t time, t_dining_table*table);
+void	print_ph(t_philosopher *philo, char *msg);
 
 #endif
