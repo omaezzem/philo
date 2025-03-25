@@ -6,7 +6,7 @@
 #    By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 10:53:12 by omaezzem          #+#    #+#              #
-#    Updated: 2025/03/23 08:09:40 by omaezzem         ###   ########.fr        #
+#    Updated: 2025/03/24 21:56:21 by omaezzem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ MAIN_SOURCES = src/parsing.c\
 			   src/main.c\
 			   src/philo.c\
 			   src/dining.c\
+			   src/hyper.c\
+			   src/dining_utils.c\
+			   src/utils.c\
 			   utilis/atoi_ph.c\
 			   utilis/ft_putstr_fd.c\
 			   utilis/isdigit.c\

@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 07:39:36 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/23 06:55:04 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:49:31 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int main(int ac, char **av)
 {
     t_dining_table table;
-    int max_ph;
+    t_philosopher  philo;
 
     if (ac < 5 || ac > 6)
         ft_putstr_fd(ERR_INV_ARG, 2);
@@ -23,7 +23,8 @@ int main(int ac, char **av)
     {
         if (!validinput(ac, av))
             return 0;
-        if (!init_dining_table(&table, av, ac))
+        printf("21\n");
+        if (!init_dining_table(&table,&philo, av, ac))
             return 0;
         if (!bismillah(&table))
             return 0;
