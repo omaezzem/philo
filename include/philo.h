@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 09:36:38 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/25 21:49:03 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:10:57 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ typedef struct s_dining_table {
 
 //                  src                     //
 
-int     init_dining_table(t_dining_table *table,t_philosopher *philo, char **av, int ac);
+int     init_dining_table(t_dining_table *table, char **av, int ac);
 int     bismillah(t_dining_table *table);
 void    hyper(t_dining_table *table);
-int     ft_ph_sleep(size_t time, t_dining_table*table);
+int     ft_ph_sleep(size_t time, t_dining_table *table);
 void    safe_print(t_philosopher *philo, char *msg);
 void    update_last_meal_time(t_philosopher *philo);
 void    increment_meal_count(t_philosopher *philo);
-int     ft_exit_dining(t_dining_table *table);
+int     ft_exit_dining(t_philosopher *philo);
 
 #endif

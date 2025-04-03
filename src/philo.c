@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 07:40:16 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/25 21:47:36 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:55:20 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int ft_init_mutex_forks(t_dining_table *table, int i)
     return 1;
 }
 
-int ft_init_mutex_table(t_dining_table *table, t_philosopher *philo)
+int ft_init_mutex_table(t_dining_table *table)
 {
     if (pthread_mutex_init(&table->meal_lock, NULL) != 0)
         return 0;
@@ -54,14 +54,10 @@ int ft_init_mutex_table(t_dining_table *table, t_philosopher *philo)
         return 0;
     if (pthread_mutex_init(&table->death_lock, NULL) != 0)
         return 0;
-    if (pthread_mutex_init(philo->left_fork, NULL) != 0)
-        return 0;
-    if (pthread_mutex_init(philo->right_fork, NULL) != 0)
-        return 0;
     return 1;
 }
 
-int     init_dining_table(t_dining_table *table, t_philosopher *philo, char **av, int ac)
+int     init_dining_table(t_dining_table *table, char **av, int ac)
 {
     table->philosopher_count = ft_to_int(av[1]);
     table->time_to_die = ft_to_int(av[2]);
@@ -72,7 +68,7 @@ int     init_dining_table(t_dining_table *table, t_philosopher *philo, char **av
         table->required_meals = ft_to_int(av[5]);
     table->die_flag = 0;
     table->start_time = get_current_time();
-    if (!ft_init_mutex_table(table, philo))
+    if (!ft_init_mutex_table(table))
         return 0;
     table->forks = malloc(sizeof(pthread_mutex_t) * table->philosopher_count);
     if (!table->forks)

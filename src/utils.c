@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 03:12:00 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/25 01:26:43 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:09:39 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int ft_ph_sleep(size_t time, t_dining_table *table)
     size_t slept = 0;
     while (slept < time)
     {
-        if (ft_exit_dining(table))
+        if (ft_exit_dining(table->philosophers))
             return 1;
         usleep(1000);
         slept += 1000;

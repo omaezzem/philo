@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 09:49:59 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/25 01:28:35 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:32:31 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,18 @@ void single_ph(t_dining_table *table)
            table->philosophers[0].id, MSG_DIED);
     pthread_mutex_unlock(&table->forks[0]);
 }
-
+void	ft_think(t_philosopher *philo)
+{
+	pthread_mutex_lock(&philo->table->print_lock);
+	safe_print(philo, MSG_THK);
+	pthread_mutex_unlock(&philo->table->print_lock);
+}
 void    ft_eat(t_philosopher *philo)
 {
         if (!philo || !philo->left_fork || !philo->right_fork)
                 return;
         pthread_mutex_lock(philo->left_fork);
-        safe_print(philo,MSG_FORK);
+        safe_print(philo, MSG_FORK);
         pthread_mutex_lock(philo->right_fork);
         safe_print(philo, MSG_FORK);
         safe_print(philo, MSG_EAT);
@@ -49,21 +54,21 @@ void    ft_sleep(t_philosopher *philo)
 }
 
 
-void    start_dining(t_philosopher *philo, t_dining_table *table)
+void    start_dining(t_philosopher *philo)
 {
-        if ((philo->id % 2 == 0) || philo->id == table->philosopher_count)
-                ft_ph_sleep(table->time_to_eat / 2, philo->table);
+        if ((philo->id % 2 == 0) || philo->id == philo->table->philosopher_count)
+                ft_ph_sleep(philo->table->time_to_eat / 2, philo->table);
         while (1)
         {
-                if (!ft_exit_dining(table))
+                if (!ft_exit_dining(philo))
                         break ;
                 ft_eat(philo);
-                if (!ft_exit_dining(table))
+                if (!ft_exit_dining(philo))
                         break ;
                 ft_sleep(philo);
-                if (!ft_exit_dining(table))
+                if (!ft_exit_dining(philo))
                         break ;
-                safe_print(philo, MSG_THK);
+                ft_think(philo);
         }
         return ;
 }
@@ -73,7 +78,6 @@ int     bismillah(t_dining_table *table)
         pthread_t       hypervsr;
         int             i;
 
-        i = 0;
         if (table->philosopher_count == 1)
         {
                 single_ph(table);
@@ -81,16 +85,13 @@ int     bismillah(t_dining_table *table)
         }
         if (pthread_create(&hypervsr, NULL, (void *)hyper, table) != 0)
                 return 0;
+        i = 0;
         while (i < table->philosopher_count)
         {
                 if (pthread_create(&table->philosophers[i].thread, NULL, (void *)start_dining,
-                        &table->philosophers[i]) != 0)
-                {
-                        pthread_mutex_lock(&table->death_lock);
-                        table->die_flag = 1;
-                        pthread_mutex_unlock(&table->death_lock);
+                &table->philosophers[i]) != 0)
                         return 0;
-                }
+                i++;
         }
         i = 0;
         while (i < table->philosopher_count)
