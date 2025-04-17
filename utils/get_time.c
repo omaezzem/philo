@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 07:39:36 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/17 11:58:14 by omaezzem         ###   ########.fr       */
+/*   Created: 2025/03/21 09:03:13 by omaezzem          #+#    #+#             */
+/*   Updated: 2025/04/12 17:29:02 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int ac, char **av)
+void	ft_exit(char *err)
 {
-	t_dining_table	table;
+	printf("%s\n", err);
+	exit(EXIT_FAILURE);
+}
 
-	if (ac < 5 || ac > 6)
-		ft_putstr_fd(ERR_INV_ARG, 2);
-	else
-	{
-		if (!validinput(ac, av))
-			return (0);
-		if (!init_dining_table(&table, av, ac))
-			return (0);
-		if (!bismillah(&table))
-			ft_destroy_all(&table);
-		ft_destroy_all(&table);
-	}
+size_t	get_current_time(void)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL))
+		ft_exit("Gettimeofday faled");
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
