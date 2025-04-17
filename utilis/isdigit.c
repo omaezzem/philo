@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   isdigit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 10:00:05 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/12 17:28:45 by omaezzem         ###   ########.fr       */
+/*   Created: 2025/03/15 10:02:02 by omaezzem          #+#    #+#             */
+/*   Updated: 2025/03/15 10:56:35 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../include/philo.h"
 
-void	ft_putchar_fd(char c, int fd)
+int ft_isdigit(char c)
 {
-	write (fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = -1;
-	if (!s)
-		return ;
-	while (s[++i])
-		ft_putchar_fd(s[i], fd);
+    if (c >= '0' && c <= '9')
+        return 1;
+    return 0;
 }

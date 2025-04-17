@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_destroy.c                                       :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 17:30:49 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/12 17:45:14 by omaezzem         ###   ########.fr       */
+/*   Created: 2025/03/21 09:03:13 by omaezzem          #+#    #+#             */
+/*   Updated: 2025/03/21 09:03:58 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	ft_destroy_all(t_dining_table *table)
+size_t	get_current_time(void)
 {
-	int	i;
+	struct timeval  tv;
 
-	i = -1;
-	while (++i < table->philosopher_count)
-	{
-		free(&table->forks[i]);
-		pthread_mutex_destroy(&table->forks[i]);
-	}
-	i = -1;
-	while (++i < table->philosopher_count)
-	{
-		free(&table->philosophers[i]);
-	}
-	pthread_mutex_destroy(&table->meal_lock);
-	pthread_mutex_destroy(&table->death_lock);
-	pthread_mutex_destroy(&table->print_lock);
-	pthread_mutex_destroy(&table->time_lock);
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }

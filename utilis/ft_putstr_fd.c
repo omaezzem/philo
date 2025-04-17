@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    ft_slp.c                                          :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 03:12:00 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/12 17:00:59 by omaezzem         ###   ########.fr       */
+/*   Created: 2025/03/15 10:00:05 by omaezzem          #+#    #+#             */
+/*   Updated: 2025/03/15 10:58:55 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include <unistd.h>
 
-int	ft_ph_sleep(size_t time, t_dining_table *table)
+void    ft_putchar_fd(char c, int fd)
 {
-	size_t	start;
+    write (fd, &c, 1);
+}
 
-	start = get_current_time();
-	while ((get_current_time() - start) < time)
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
 	{
-		pthread_mutex_lock(&table->death_lock);
-		if (table->die_flag)
-		{
-			pthread_mutex_unlock(&table->death_lock);
-			return (0);
-		}
-		pthread_mutex_unlock(&table->death_lock);
-		usleep(500);
+		ft_putchar_fd(s[i], fd);
+		i++;
 	}
-	return (0);
 }
