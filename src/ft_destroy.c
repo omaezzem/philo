@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_destroy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 07:39:36 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/18 16:31:07 by omaezzem         ###   ########.fr       */
+/*   Created: 2025/04/12 17:30:49 by omaezzem          #+#    #+#             */
+/*   Updated: 2025/04/18 16:30:32 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int ac, char **av)
+void	ft_destroy_all(t_dining_table *table)
 {
-	t_dining_table	table;
+	int	i;
 
-	if (ac < 5 || ac > 6)
-		ft_putstr_fd(ERR_INV_ARG, 2);
-	else
+	if (!table)
+		return ;
+	if (table->forks)
 	{
-		if (!validinput(ac, av))
-			return (0);
-		if (!init_dining_table(&table, av, ac))
-			return (0);
-		if (table.philosopher_count == 1)
+		i = -1;
+		while (++i < table->philosopher_count)
 		{
-			single_thread_ph(&table);
-			ft_destroy_all(&table);
-			exit(1);
+			pthread_mutex_destroy(&table->forks[i]);
 		}
-		if (!ft_start_dining(&table))
-			ft_destroy_all(&table);
-		ft_destroy_all(&table);
+		free(table->forks);
 	}
+	if (table->philosophers)
+	{
+		free(table->philosophers);
+	}
+	pthread_mutex_destroy(&table->meal_lock);
+	pthread_mutex_destroy(&table->death_lock);
+	pthread_mutex_destroy(&table->print_lock);
+	pthread_mutex_destroy(&table->time_lock);
 }

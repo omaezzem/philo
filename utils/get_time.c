@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atoi_ph.c                                          :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 10:05:19 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/03/22 09:01:13 by omaezzem         ###   ########.fr       */
+/*   Created: 2025/03/21 09:03:13 by omaezzem          #+#    #+#             */
+/*   Updated: 2025/04/12 17:29:02 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int atoi_ph(char *str)
+void	ft_exit(char *err)
 {
-    unsigned long long nb = 0;
-    int i = 0;
-    int sign = 1;
+	printf("%s\n", err);
+	exit(EXIT_FAILURE);
+}
 
-    while (ft_space(str[i]))
-        i++;
-    if (str[i] == '-' || str[i] == '+')
-    {
-        if (str[i] == '-')
-            sign = -1;
-        i++;
-    }
-    while (str[i] >= '0' && str[i] <= '9')
-    {
-        nb = nb * 10 + (str[i] - '0');
-        if (nb > INT_MAX)
-            return (-1);
-        i++;
-    }
-    return ((int)(nb * sign));
+size_t	get_current_time(void)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL))
+		ft_exit("Gettimeofday faled");
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
