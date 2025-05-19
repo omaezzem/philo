@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 09:03:13 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/12 17:29:02 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:46:58 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_exit(char *err)
 {
 	printf("%s\n", err);
-	exit(EXIT_FAILURE);
+	return ;
 }
 
 size_t	get_current_time(void)

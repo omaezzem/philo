@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 09:36:00 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/18 16:31:48 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:57:40 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_to_int(char *str)
 int	check_zero_sexty(char **av, int i)
 {
 	if (ft_to_int(av[i]) == 0)
-		return (ft_putstr_fd("Error: argument \n", 2), 0);
+		return (0);
 	if (ft_to_int(av[i]) < 60 && (i == 2 || i == 3 || i == 4))
 		return (ft_putstr_fd("Error: argumants must be over 60\n", 2), 0);
 	return (1);
@@ -72,10 +72,10 @@ int	validinput(int ac, char **av)
 	i = 0;
 	while (++i < ac)
 	{
-		if (!check_zero_sexty(av, i))
-			exit(1);
 		if (!ft_is_valid(av, i))
-			exit(1);
+			return (0);
+		if (!check_zero_sexty(av, i))
+			return (0);
 		nb = ft_to_int(av[i]);
 		if (nb == -1)
 			return (ft_putstr_fd(ERR_INV_NUM, 2), 0);

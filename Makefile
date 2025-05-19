@@ -6,7 +6,7 @@
 #    By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 10:53:12 by omaezzem          #+#    #+#              #
-#    Updated: 2025/04/18 16:34:57 by omaezzem         ###   ########.fr        #
+#    Updated: 2025/05/18 17:08:08 by omaezzem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = cc  
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 
 MAIN_SOURCES = src/parsing.c\
 			   src/main.c\

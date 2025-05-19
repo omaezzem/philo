@@ -6,11 +6,24 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 08:56:53 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/12 17:24:06 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:31:43 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	all_philosophers_ate(t_dining_table *table)
+{
+	int	j;
+
+	j = -1;
+	while (++j < table->philosopher_count)
+	{
+		if (table->philosophers[j].meals_eaten < table->required_meals)
+			return (0);
+	}
+	return (1);
+}
 
 int	philo_died(t_dining_table *table, int i)
 {
@@ -25,27 +38,14 @@ int	philo_died(t_dining_table *table, int i)
 	if (!table->die_flag && (current - last_meal)
 		> (size_t)table->time_to_die)
 	{
-		printf("[%zu] %d %s", current - table->start_time,
-			table->philosophers[i].id, MSG_DIED);
+		printf("%zu    %d   %s\n",
+			current - table->start_time, table->philosophers[i].id, MSG_DIED);
 		table->die_flag = 1;
 		pthread_mutex_unlock(&table->death_lock);
 		return (1);
 	}
 	pthread_mutex_unlock(&table->death_lock);
 	return (0);
-}
-
-int	all_philosophers_ate(t_dining_table *table)
-{
-	int	j;
-
-	j = -1;
-	while (++j < table->philosopher_count)
-	{
-		if (table->philosophers[j].meals_eaten < table->required_meals)
-			return (0);
-	}
-	return (1);
 }
 
 int	philo_end(t_dining_table *table, int i)
@@ -70,21 +70,4 @@ int	philo_end(t_dining_table *table, int i)
 	}
 	pthread_mutex_unlock(&table->meal_lock);
 	return (should_end);
-}
-
-void	hyper(t_dining_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (1)
-	{
-		if (philo_died(table, i) || philo_end(table, i))
-			return ;
-		i++;
-		if (i >= table->philosopher_count)
-			i = 0;
-		usleep(500);
-	}
-	return ;
 }

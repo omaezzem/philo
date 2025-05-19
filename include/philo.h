@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 09:36:38 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/18 16:35:32 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:13:05 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,20 @@
 
 # define MAX_PHILO 200
 # define MAX_MEAL  200
-
-/* Error messages */
 # define ERR_INV_N_PHILO "Error: Number of philosophers must be at least 1.\n"
-# define ERR_INV_INPUT   "Error: argument must be positive integers.\n"
-# define ERR_INV_MEALS   "Error: number of meals must be positive integers.\n"
-# define ERR_INV_ARG     "Error: argument must be a number\n"
-# define ERR_INV_NUM     "Error: argument must be less or equal to INT_MAX\n"
-# define ERR_INV_ALOCATION  "Error: failed allocation\n"
-# define ERR_INIT        "Error: failed initialization\n"
-
-/* Status messages */
+# define ERR_INV_INPUT "Error: argument must be positive integers.\n"
+# define ERR_INV_MEALS "Error: number of meals must be positive integers.\n"
+# define ERR_INV_ARG "Error: argument must be a number\n"
+# define ERR_INV_NUM "Error: argument must be less or equal to INT_MAX\n"
+# define ERR_INV_ALOCATION "Error: failed allocation\n"
+# define ERR_INIT "Error: failed initialization\n"
+# define ERR_INA "Error: Invalid number of arguments.\n"
+# define ERR_USG "Usage: ./program arg1 arg2 arg3 arg4 [optional_arg5]\n"
 # define MSG_FORK "has taken a fork\n"
 # define MSG_DIED "died\n"
-# define MSG_EAT  "is eating\n"
-# define MSG_SLP  "is sleeping\n"
-# define MSG_THK  "is thinking\n"
+# define MSG_EAT "is eating\n"
+# define MSG_SLP "is sleeping\n"
+# define MSG_THK "is thinking\n"
 
 typedef struct s_dining_table	t_dining_table;
 
@@ -69,29 +67,28 @@ typedef struct s_dining_table
 	t_philosopher	*philosophers;
 }	t_dining_table;
 
-/* Utilis functions */
 int		ft_isdigit(char c);
 void	ft_putstr_fd(char *s, int fd);
 int		atoi_ph(char *str);
 int		ft_to_int(char *str);
 size_t	get_current_time(void);
 int		ft_ph_sleep(size_t time, t_dining_table *table);
-
-/* Input validation */
 int		validinput(int ac, char **av);
-
-/* Philosopher logic */
 int		init_dining_table(t_dining_table *table, char **av, int ac);
 int		ft_start_dining(t_dining_table *table);
 void	hyper(t_dining_table *table);
-void	start_dining(t_philosopher *philo);
+void	*start_dining(t_philosopher *philo);
 int		ft_exit_dining(t_philosopher *philo);
-
-/* Sync functions */
 void	safe_print(t_philosopher *philo, char *msg);
 void	update_last_meal_time(t_philosopher *philo);
 void	increment_meal_count(t_philosopher *philo);
 void	ft_destroy_all(t_dining_table *table);
 int		single_thread_ph(t_dining_table *table);
+int		checkeat(t_philosopher *philo);
+void	ft_sleep(t_philosopher *philo);
+void	ft_eat(t_philosopher *philo);
+void	ft_think(t_philosopher *philo);
+int		philo_end(t_dining_table *table, int i);
+int		philo_died(t_dining_table *table, int i);
 
 #endif

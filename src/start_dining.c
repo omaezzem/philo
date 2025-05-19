@@ -6,7 +6,7 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:24:09 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/18 15:24:15 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:31:57 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	ft_start_dining(t_dining_table *table)
 	int			i;
 
 	i = -1;
-	if (table->philosopher_count == 1)
-		return (single_thread_ph(table), 0);
 	if (pthread_create(&hypervsr, NULL, (void *)hyper, table) != 0)
 		return (0);
 	while (++i < table->philosopher_count)
@@ -68,4 +66,25 @@ int	ft_start_dining(t_dining_table *table)
 			return (0);
 	}
 	return (1);
+}
+
+void	*start_dining(t_philosopher *philo)
+{
+	if (philo->id % 2 == 0)
+		ft_ph_sleep(philo->table->time_to_eat / 2, philo->table);
+	while (1)
+	{
+		if (ft_exit_dining(philo))
+			break ;
+		ft_eat(philo);
+		if (ft_exit_dining(philo))
+			break ;
+		ft_sleep(philo);
+		if (ft_exit_dining(philo))
+			break ;
+		ft_think(philo);
+		if (checkeat(philo))
+			return (NULL);
+	}
+	return (NULL);
 }

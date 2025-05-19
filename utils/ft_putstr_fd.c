@@ -6,11 +6,11 @@
 /*   By: omaezzem <omaezzem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 10:00:05 by omaezzem          #+#    #+#             */
-/*   Updated: 2025/04/12 17:28:45 by omaezzem         ###   ########.fr       */
+/*   Updated: 2025/05/09 11:14:53 by omaezzem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../include/philo.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
